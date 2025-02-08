@@ -58,6 +58,49 @@ vue 3.1 버전 이상에서 도입된 Composition API의 더욱 간소화된 문
 </details>
 <br>
 
+# Vue3 CLI 프로젝트 설치 및 기동
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+## 필수 요소
+- Node.js (LTS)
+- IDE: VSC 등
+
+## 터미널 
+- vue/cli 설치 명령어 입력
+  ```bash
+  npm install -g @vue/cli
+  ```
+- Vue 프로젝트 생성
+  ```bash
+  vue create {프로젝트명}
+  ```
+- Vue 버전 선택 - 첫번째 Vue3 선택
+  ```bash
+  ? Please pic a preset: (Use arrow keys)
+  > Default ( [Vue 3] babel, eslint)
+    Default ( [Vue 2] babel, eslint)
+    Manually select features
+  ```
+- 설치 완료 후 최종 터미널 통합 출력 내용
+  ```bash
+  Generating README.md...  
+
+  Successfully Created project movie-info.  
+  Get started with the following commands:  
+  ```
+- VSC 실행
+  ```bash
+  code .
+  ```
+- vue 프로젝트 node 개발서버 실행
+  ```bash
+  npm run serve
+  ```
+</details>
+<br>
+
 # Vite 빌드 툴 소개
 <details>
 <summary>펼치기/접기</summary>
@@ -76,6 +119,10 @@ Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 �
 <details>
 <summary>펼치기/접기</summary>
 <br>
+
+## 필수 요소
+- Node.js (LTS)
+- IDE: VSC 등
 
 ## 터미널 
 - 설치 명령어 입력
