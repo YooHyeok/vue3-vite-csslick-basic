@@ -190,6 +190,18 @@ Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 �
 </details>
 <br>
 
+# Vue3 관련 Extension
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+- Volar (Vue Language Feature)
+  - Vue
+- Vue 3 snippets
+  - hollowtree
+</details>
+<br>
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
