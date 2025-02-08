@@ -202,6 +202,62 @@ Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 �
 </details>
 <br>
 
+# 컴포지션 API 상태변수를 다루는 2가지 방법
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+Vue3 Composition API를 사용할 때 상태변수를 다루는 2가지 방법이 있다.  
+ref와 reactive가 있다.  
+
+두개중 어떤것을 사용해야 할까?  
+원시값에 해당하는 숫자, 문자열 등의 상태 변수를 만들기 위해서는 ref() 함수를 사용해야 하며, 객체를 만드는 경우는 ref 또는 reactive 모두 사용이 가능하다.  
+ref의 경우는 숫자, 문자 타입을 자유롭게 담을 수 있으며 심지어 객체도 담을 수 있다.  
+
+### ref
+template 태그 영역에서는 변수 선언만으로 접근이 가능하다.  
+그러나 script 태그 영역에서는 ref라는 객체 안에 은닉되어 있기 때문에 바로 접근할 수 없다.  
+따라서 변수명 뒤에 value라는 속성을 통해 `변수명.value`와 같이 접근해야만 한다.  
+변수명 뒤에 value라는 속성이 붙기 때문에 상태변수라는 것을 직관적으로 알 수 있는 장점이 있다.  
+
+- ref 예제코드
+  ```vue
+  <script setup>
+    import {reactive} from 'vue'
+    const count = ref(0);
+    const str = ref('hello');
+    const obj = ref({name: 'YooHyeok'});
+
+    console.log(count); // ref라는 객체 안에 은닉이 되어 있기 때문에 바로 접근할 수 없다.
+    console.log(count.value); // 0 출력 - 항상 ref변수는 value라는 속성으로 접근해야 한다.
+  </script>
+  <template>
+    <p>{{ count }}</p>
+    <p>{{ str }}</p>
+    <p>{{ obj.name }}</p>
+  </template>
+  ``` 
+
+### reactive
+ref변수와는 다르게 reactive는 바로 접근이 가능하다.
+바로 접근이 가능하기 때문에 script 태그 영역에서 자바스크립트 순수 Object인지 Vue의 reactive에서 가져오는지 햇갈릴 수 있다.  
+
+- reactive 예제코드
+  ```vue
+  <script setup>
+    import {reactive} from 'vue'
+    const reactiveObj = reactive({name: 'YooHyeok'});
+
+    console.log(reactiveObj); // reactive는 바로 접근이 가능하다.
+  </script>
+  <template>
+    <p>{{ reactiveObj.name }}</p>
+  </template>
+  ``` 
+
+</details>
+<br>
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
