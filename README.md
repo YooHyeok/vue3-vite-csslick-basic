@@ -258,6 +258,58 @@ ref변수와는 다르게 reactive는 바로 접근이 가능하다.
 </details>
 <br>
 
+# 데이터 바인딩
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+데이터를 화면에 출력하는 것을 데이터 바인딩이라 하며, 데이터가 변경되었을 때 화면에 업데이트 되어야 한다.  
+이런것들을 리액티브한 value값들 이라고 한다.  
+Vue에서는 정적인 변수값과 리액티브한 변수값이 있을 수 있다.  
+
+v-bind 디렉티브를 통한 데이터 바인딩으로 속성값이나, 텍스트노드 값들을 표시할 수 있다.  
+
+특정 태그의 style등의 속성에 바인딩 하기 위해서는 v-bind를 통해 `v-bind:속성명="변수명"` 형태로 바인딩한다.  
+텍스트노드의 경우 vue의 mustache 문법을 통해 `{{ 변수명 }}` 형태로 바인딩 한다.  
+이는 vue2에서의 문법과 동일하다.  
+
+vue2와의 차이점이라면 변수 선언이다.  
+vue2에서는 정적 변수 선언시 export default {} 영역 바깥 상단에 변수를 선언해야 했다.  
+
+## Vue2 예시코드
+- components/Chapter02.vue
+  ```vue
+  <script>
+    const myStyle = { color: 'red' } /* 정적 변수 */
+    const title = "Chapter2" /* 정적 변수 */
+    export default {
+      name: "Chapter02"
+    }    
+  </script>
+  <template>
+    <h1 v-bind:style="myStyle"> <!-- style 속성에 바인딩 -->
+      {{ title }} <!-- mustach 문법 활용 텍스트노드 바인딩 -->
+    </h1>
+  </template>
+  ```
+
+## Vue3 예시코드
+- components/Chapter02.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue';
+    const myStyle = { color: 'red' } /* 정적 변수 */
+    const title = "Chapter2" /* 정적 변수 */
+  </script>
+  <template>
+    <h1 v-bind:style="myStyle"> <!-- style 속성에 바인딩 -->
+      {{ title }} <!-- mustach 문법 활용 텍스트노드 바인딩 -->
+    </h1>
+  </template>
+  ```
+</details>
+<br>
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
