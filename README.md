@@ -58,6 +58,20 @@ vue 3.1 버전 이상에서 도입된 Composition API의 더욱 간소화된 문
 </details>
 <br>
 
+# Vite 빌드 툴 소개
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+Vue3로 넘어가면서 프로젝트를 만들고 빌드하던 기존 vue cli 대신 Vite를 사용할 수 있다.  
+Vite는 FrontEnd 개발 툴로 Vue 뿐만 아니라 React등 다른 FrontEnd 개발 어디서든 사용이 가능하다.  
+기존 Vue CLI와 마찬가지로 개발용 서버 기능과 배포를 위한 빌드 기능을 제공한다.  
+Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 번들링 과정이 필요하며, 이때 기존과 다르게 `Naitve`(Naitve ESM based dev server) 방식으로 처리되어 구동 속도가 매우 빠르다.
+![alt text](image.png)
+
+</details>
+<br>
+
 # Vue3 Vite 프로젝트 설치 및 기동
 <details>
 <summary>펼치기/접기</summary>
