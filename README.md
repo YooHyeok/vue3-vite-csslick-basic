@@ -1,4 +1,64 @@
-# vue3 vite 프로젝트 설치 및 기동
+# `Vue 3 CompositionAPI 예제 프로젝트`
+
+# Composition API(3.1) 소개
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+## Composition API란?
+기존 문법을 간결하게 다루게 해준다.  
+vue 3.1 버전 이상에서 도입된 Composition API의 더욱 간소화된 문법을 소개한다.  
+새로운 빌드 도구인 vite에서 기본 템플릿으로 제공하고 있다.  
+공식 문서에서도 Composition API 사용을 권장하고 있다.  
+주요 개선사항으로는 setup 기능으로 스크립트 작성 규칙을 단순화 시켰으며, 컴포넌트 관련 항목들, name, components 등 옵션등을 일일히 구분하지 않아도 된다.  
+또한 export default 이하 데이터, 메소드, watch 등 또한 마찬가지로 따로 구분 필요 없이 한 곳에 작성 가능하다.  
+상태 변수를 작성하는 문법이 변경되었으며, ref() 함수를 이용해 관리할 수 있다.  
+라이프사이클 같은 경우도 함수로 작성하면 되며, onMounted로 이르만 변경되었다.
+
+### 주요 개선 사항 정리
+- setup 기능으로 스크립트 작성 규칙 단순화
+- 옵션을 따로 구분할 필요 없이 한곳에서 작성
+  - export default 이하 data, method, watch 등 구분 필요 없이 한곳에 작성 가능
+- ref()로 상태변수 관리
+- depfineProps로 prop 관리
+### 실제 개선된 내용 코드 예시
+- AS-IS
+  ```vue
+  <script>
+    export default {
+      name: 'AppComponent',
+      data() {
+        return {
+          name: "APP",
+          count: 0
+        }
+      },
+      methods: {
+        addCount() {
+          count.value += 1;
+        }
+      },
+      mounted() {
+        console.log('mounted')
+      },
+    }
+  </script>
+  ```
+- TO-BE
+  ```vue
+  <script setup>
+    import { ref, onMounted } from 'vue';
+    let name = ref('App');
+    let count = ref(0);
+    onMunted(() => {
+      console.log('mounted')
+    })
+  </script>
+  ```
+</details>
+<br>
+
+# Vue3 Vite 프로젝트 설치 및 기동
 <details>
 <summary>펼치기/접기</summary>
 <br>
