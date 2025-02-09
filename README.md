@@ -202,7 +202,7 @@ Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 �
 </details>
 <br>
 
-# 컴포지션 API 상태변수를 다루는 2가지 방법
+# 02) 컴포지션 API 상태변수를 다루는 2가지 방법
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -258,7 +258,7 @@ ref변수와는 다르게 reactive는 바로 접근이 가능하다.
 </details>
 <br>
 
-# 데이터 바인딩
+# 03) 데이터 바인딩 - 정적 변수
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -305,6 +305,97 @@ vue2에서는 정적 변수 선언시 export default {} 영역 바깥 상단에 
     <h1 v-bind:style="myStyle"> <!-- style 속성에 바인딩 -->
       {{ title }} <!-- mustach 문법 활용 텍스트노드 바인딩 -->
     </h1>
+  </template>
+  ```
+</details>
+<br>
+
+# 04) 데이터 바인딩 - 상태 변수
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+데이터 바인딩시 일반 변수를 사용하기도 하지만 값이 변했을 때 동시에 화면에 업데이트 되도록 반응성을 주기 위해서는 상태 변수를 사용해야 한다.  
+일반 정적 변수와 상태 변수의 차이점에 대해 알아보자.  
+
+먼저 일반 변수는 반응성을 갖지 않으며 값이 변경되더라도 화면이 자동으로 갱신되지는 않는다.  
+예를들어 버튼을 클릭했을 때 값이 증가해서 화면에 업데이트 되는 로직을 구현해본다.  
+- Chapter04.vue
+  ```vue
+  <script setup>
+    let count = 0;
+    const increment = () => {
+      count++;
+      alert(count)
+    }
+  </script>
+  <template>
+    <p>count: {{ count }}</p>
+    <button @click="increment">Count++</button>
+  </template>
+  ```
+일반 정적 변수는 값에 대한 추적이 발생되지 않으므로, 다시말해 vue에서 변경을 감지하지 않으므로 실제로 변경은 되지만 템플릿에는 반영되지 않는다.  
+
+
+## ref 상태 변수 적용  
+- Chapter04.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue';
+    const refCount = ref(0);
+    const increment = () => {
+      refCount.value++;
+    }
+  </script>
+  <template>
+    <p>refCount: {{ refCount }}</p>
+    <button @click="increment">Count++</button>
+  </template>
+  ```
+
+## 예외 현상
+만약 정적 변수와 상태 변수 모두 템플릿에 선언한 뒤, 동일 시점의 트리거에 두 변수 모두 변경 될 경우 정적 변수도 함께 업데이트 된다.  
+이는 상태변수가 변경될때 리랜더링 되면서, 정적 변수에 대한 변경된 값도 함께 반영이 되는것이다.  
+단 값에대한 추적 즉, 값 변경에 대한 감지는 상태변수에만 해당된다.  
+상태변수의 값 변경이 감지가 되어 리랜더링되면서, 변경된 정적 변수 값도 함께 새롭게 반영된 것이다.  
+
+- Chapter04.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue';
+    let count = 0;
+    const refCount = ref(0);
+    const increment = () => {
+      count++;
+      refCount.value++;
+      alert(count)
+    }
+  </script>
+  <template>
+    <p>count: {{ count }}</p>
+    <p>refCount: {{ refCount }}</p>
+    <button @click="increment">Count++</button>
+  </template>
+  ```
+
+template에서 반응형 변수를 제거할 경우 Vue는 해당 변수를 더이상 추적하지 않게 된다.  
+따라서 정적 count 변수는 반응형으로 동작하지 않게 된다.  
+이는 Vue의 반응형 시스템이 템플릿에서 사용된 변수만 추적하기 때문이다.  
+- Chapter04.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue';
+    let count = 0;
+    const refCount = ref(0);
+    const increment = () => {
+      count++;
+      refCount.value++;
+      alert(count)
+    }
+  </script>
+  <template>
+    <p>count: {{ count }}</p>
+    <button @click="increment">Count++</button>
   </template>
   ```
 </details>
