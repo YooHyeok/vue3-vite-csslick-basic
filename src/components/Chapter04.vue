@@ -1,7 +1,11 @@
 <script setup>
   let count = 0;
+  const increment = () => {
+    count++;
+    alert(count)
+  }
 </script>
 <template>
-  <p>Count: {{ 0 }}</p>
-  <button>Count++</button>
+  <p>count: {{ count }}</p>
+  <button @click="increment">Count++</button>
 </template>
