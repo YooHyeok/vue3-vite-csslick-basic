@@ -202,7 +202,7 @@ Vite를 쓰는 이유는 배포를 위한 과정에서 코드를 통합하는 �
 </details>
 <br>
 
-# 02) 컴포지션 API 상태변수를 다루는 2가지 방법
+# 컴포지션 API 상태변수를 다루는 2가지 방법
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -258,7 +258,7 @@ ref변수와는 다르게 reactive는 바로 접근이 가능하다.
 </details>
 <br>
 
-# 03) 데이터 바인딩 - 정적 변수
+# 02) 데이터 바인딩 - 정적 변수
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -310,7 +310,7 @@ vue2에서는 정적 변수 선언시 export default {} 영역 바깥 상단에 
 </details>
 <br>
 
-# 04) 데이터 바인딩 - 상태 변수
+# 03) 데이터 바인딩 - 상태 변수
 <details>
 <summary>펼치기/접기</summary>
 <br>
@@ -398,6 +398,78 @@ template에서 반응형 변수를 제거할 경우 Vue는 해당 변수를 더�
     <button @click="increment">Count++</button>
   </template>
   ```
+</details>
+<br>
+
+# 04_01 v-for 반복문
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+vue2에서 사용법과 동일하다.  
+단, 특정 이벤트 트리거의 데이터 조작을 통해 목록을 구성하는 list 변수의 값 변화에 의해 리렌더링이 발생 한다면 컴포지션 API를 사용하는 vue3 에서는 상태 변수를 사용해야 한다.
+
+- src/Chapter04_01.vue
+  ```vue
+  <script setup>
+    const foodObjs = [
+      { id: 1, name: 'apple' },
+      { id: 2, name: 'banana' },
+      { id: 3, name: 'mango' }
+    ]
+  </script>
+  <template>
+    <h1>반복문</h1>
+    <ul>
+      <li 
+        v-for="(food) in foodObjs"
+        :key="food.id"
+      >
+        {{ food.id }}: {{ food.name }}
+      </li>
+    </ul>
+  </template>
+  ```
+
+</details>
+<br>
+
+# 04_02 v-if 조건부 렌더링
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+vue2에서 사용법과 동일하다.
+단, 조건을 구성하는 값 변화에 의한 리랜더링을 통해 작동되기 때문에 조건에 바인딩되는 변수의 경우 컴포지션 API를 사용하는 vue3 에서는 상태 변수를 사용해야 한다.
+- src/Chapter04_02.vue
+  ```vue
+  <script setup>
+  import { ref } from 'vue';
+
+  const isOpen = ref(true);
+  const closeModal = () => {
+    isOpen.value = false
+  }
+
+  </script>
+  <template>
+    <h1>조건부 랜더링(Conditional Redering)</h1>
+    <div class="modal" v-if="isOpen">
+      <h2>Notice</h2>
+      <p>50% off today</p>
+      <button @click="isOpen=false">close</button>
+      <button @click="closeModal">close</button>
+    </div>
+  </template>
+  <style scoped>
+  .modal {
+    background-color: #ccc;
+    padding: 1rem;
+    h2 { margin: 0; color: red; }
+  }
+  </style>
+  ```
+
 </details>
 <br>
 
