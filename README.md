@@ -473,6 +473,95 @@ vue2에서 사용법과 동일하다.
 </details>
 <br>
 
+# 컴포넌트와 Props
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+## 컴포넌트란? 
+재활용 가능한 레고 블럭 같은 것이다.  
+홈페이지에서 헤더나 푸터 같이 공통적으로 사용하는 영역은 컴포넌트로 만든다.  
+vue3에서는 이런 컴포넌트를 쉼게 만들 수 있으며 뿐만아니라 props를 통해 부모와 자식 컴포넌트 간의 데이터를 주고 받을 수도 있다.  
+
+## Props
+부모와 자식 컴포넌트 간에 데이터를 전달할때 사용하는 속성이다.
+
+### 예제1) 컴포넌트화(분리) 및 참조
+
+초기 컴포넌트는 아래와 같다.  
+- Chapter05.vue
+  ```vue
+  <template>
+    <header>
+      <h1>Header</h1>
+    </header>
+    <h1>Content</h1>
+  </template>
+  ```
+
+header 태그 영역을 Header.vue라는 컴포넌트로 컴포넌트화 한다.  
+- Header.vue
+  ```vue
+  <template>
+    <header>
+      <h1>Header</h1>
+    </header>
+  </template>
+  ```
+
+Header.vue 컴포넌트를 기존 Chapter05.vue 컴포넌트에서 컴포넌트를 참조한 뒤 template 태그 영역에 import한 자식 태그를 선언한다.  
+이때 참조하는 컴포넌트는 부모가 되고, 참조되는 컴포넌트는 자식이 된다.  
+- Chapter05.vue
+  ```vue
+  <script setup>
+    import Header from './Header.vue'
+
+  </script>
+  <template>
+    <Header />
+    <h1>Content</h1>
+  </template>
+  ```
+  
+### 예제2) 부모-자식 컴포넌트 관계에서 props 전달
+부모 컴포넌트에서 자식 컴포넌트로 props를 넘기는것은 vue2와 동일하다.  
+컴포넌트 태그에 넘기려는 속성의 속성명을 입력하고, 쌍따옴표 안에 값을 채운다.  
+변수 값을 바인딩 하려면 v-bind를 속성 앞에 적용하여 `v-bind:속성명="변수명 "` 문법 형태로 적용한다.
+- Chapter05.vue
+  ```vue
+  <script setup>
+    import Header from './Header.vue'
+  </script>
+  <template>
+    <Header title="header component" />
+    <h1>Content</h1>
+  </template>
+  ```
+
+부모 컴포넌트로부터 넘겨받은 props를 자식 컴포넌트에서 받는 vue3의 컴포지션 API 문법은 vue2와는 조금 다르다.  
+vue 전역 패키지로부터 defineProps() 함수를 import 하여 함수를 호출하며 변수에 할당한다.  
+해당 함수의 매개변수로 부모컴포넌트에서 넘긴 속성을 객체 리터럴 형태의 문법과 유사하게 선언한다.  
+이때 `{ props속성명: 타입 }` 형태로 타입을 지정해준다.  
+선언이 완료되면, script태그와 template태그에서 자유롭게 사용이 가능해진다.  
+단, 값의 변경은 자식컴포넌트에서는 불가능하다. (객체타입은 가능...)
+- Header.vue
+  ```vue
+  <script setup>
+    import { defineProps } from 'vue'
+    const props = defineProps({
+      title: String;
+    })
+  </script>
+  <template>
+    <header>
+      <h1>{{ props.titie }}</h1>
+    </header>
+  </template>
+  ```
+
+</details>
+<br>
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
