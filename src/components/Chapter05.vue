@@ -3,7 +3,7 @@
 
 </script>
 <template>
-  <Header />
+  <Header title="header component" />
   <header>
     <h1>Header</h1>
   </header>
