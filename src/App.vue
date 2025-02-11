@@ -4,6 +4,7 @@ import Chapter02 from './components/Chapter02.vue'
 import Chapter03 from './components/Chapter03.vue'
 import Chapter04_01 from './components/Chapter04_01.vue'
 import Chapter04_02 from './components/Chapter04_02.vue'
+import Chapter05 from './components/Chapter05.vue'
 </script>
 
 <template>
@@ -12,6 +13,7 @@ import Chapter04_02 from './components/Chapter04_02.vue'
   <Chapter03/>
   <Chapter04_01/>
   <Chapter04_02/>
+  <Chapter05/>
 </template>
 
 <style scoped>
