@@ -562,6 +562,87 @@ vue 전역 패키지로부터 defineProps() 함수를 import 하여 함수를 �
 </details>
 <br>
 
+# 이벤트와 v-model
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+Event란 주로 사용자 인터페이스에서 사용자와의 상호작용. 예를들어 클릭이나 입력 등이 발생했을 때  
+이를 처리하기 위해 이벤트를 발생시키고 필요한 기능을 동작시키고 하는 것을 의미한다.  
+
+#### 버튼을 클릭하면 카운터를 증가시키는 앱을 만들어본다.  
+
+초기값이 0인 상태변수 count를 추가하고 button 태그에 이벤트를 추가하도록 한다.  
+`v-on:이벤트명` 문법 혹은 축약문법인 `@이벤트명`으로 count변수를 증가시키는 실행문을 속성에 등록한다.
+- Chapter06.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue'
+    const count = ref(0); // 상태변수 추가
+
+  </script>
+  <template>
+    <button @click="count++">{{ count }}</button> <!-- button태그 추가 및 실행문 바인딩 -->
+  </template>
+  ```
+
+#### 사용자의 입력을 받는 input요소를 만들어 본다.
+
+초기값이 null인 상태변수 inputValue를 추가하하고 text type의 input 태그에 이벤트를 추가하도록 한다.  
+text type의 input 태그를 선언한 뒤 `v-on:이벤트명` 문법 혹은 축약문법인 `@이벤트명`으로 입력 받은 내용을 inputValue에 초기화하는 handleInput() 함수를 @이벤트 속성에 등록한다.
+- Chapter06.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue'
+    const count = ref(0);
+    const inputValue = ref(''); // 상태변수 추가
+    const handleInput = (e) => { // 이벤트 바인딩 함수 추가
+      inputValue.value = e.target.value
+    }
+  </script>
+  <template>
+    <button @click="count++">{{ count }}</button>
+    <br>
+    <p>{{ inputValue }}</p>
+    <input type="text" @input="handleInput" /> <!-- input 태그 추가 및 함수 바인딩 -->
+  </template>
+  ```
+이렇게 까지만 하면 기능은 정상적으로 작동되지만 단방향으로 데이터가 전달된다.  
+양방향으로 데이터가 전달되도록 하기 위해서는 input 태그에 상태변수 inputValue를 꼭 바인딩 해줘야만 한다.
+위 방식은 js의 일반적인 텍스트 입력 필드에서 사용하는 input 이벤트와 핸들러 방식과 동일하다.  
+
+vue에서는 이 방식 말고 v-model이라는 디렉티브를 사용하면 더 간단하게 다룰 수 있다.  
+
+#### v-model을 적용해본다.
+
+사용 문법은 vue2와 동일하다.
+`<input type="text" v-model="상태변수명">` 과 같이 v-model에 상태변수만 바인딩해주면 된다
+
+- Chapter06.vue
+  ```vue
+  <script setup>
+    import { ref } from 'vue'
+    const count = ref(0);
+    const inputValue = ref('');
+    const handleInput = (e) => {
+      inputValue.value = e.target.value
+    }
+    const modelValue = ref(''); // 상태변수 추가
+  </script>
+  <template>
+    <button @click="count++">{{ count }}</button>
+    <br>
+    <p>inputValue: {{ inputValue }}</p>
+    <input type="text" @input="handleInput" />
+    <br>
+    <p>modelValue: {{ modelValue }}</p>
+    <input type="text" v-model="modelValue" /> <!-- input 태그 추가 및 v-model 상태변수 바인딩 -->
+  </template>
+  ```
+
+</details>
+<br>
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
