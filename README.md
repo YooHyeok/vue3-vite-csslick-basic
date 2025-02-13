@@ -643,6 +643,104 @@ vue에서는 이 방식 말고 v-model이라는 디렉티브를 사용하면 더
 </details>
 <br>
 
+# Lifecycle Hooks
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+라이프사이클은 컴포넌트가 `생성`되고 `업데이트`되며 `제거`되는 과정을 의미한다.  
+vue에서컴포넌트는 각 단계마다 특정 이벤트를 검사하는데 이를 통해 개발자는 컴포넌트가 동작하는 특정 시점에서 필요한 코드를 실행할 수 있다.  
+주로 사용하는 라이프사이클 훅 두가지가 있다.
+
+onMounted는 컴포넌트가 DOM에 마운트된 후 실행되는 함수이다.  
+보통 서버에서 데이터를 가져오는 사전 작업에서 사용한다.  
+
+onUnmounted는 컴포넌트가 제거될 때 실행되는 이다.  
+보통 타이머라고 하는 setInterval같이 주기적으로 프로그램을 실행하는 처리문들은 메모리에서 계속 동작을 하기 때문에 컴포넌트가 종료되는 시멎에서 메모리를 초기화하는 시점에서 사용할 수 있다.  
+
+### onMounted
+  - 컴포넌트가 DOM에 마운트된 후 실행되는 함수
+  - 서버에서 데이터를 가져오는 작업등에 사용
+### onUmMounted
+  - 컴포넌트가 DOM에서 언마운트 될 때 실행되는 함수
+  - 타이머 해제, setInterval로 주기적인 작업을 처리하고 컴포넌트가 언마운트될 때 이를 중지해야한다.
+  - 기타 컴포넌트가 종료될 때 메모리 초기화가 필요한 경우 사용
+
+## Modal 컴포넌트 조건부 렌더링 예제
+
+먼저 부모컴포넌트에 출력될 Modal.vue 컴포넌트를 생성한다.
+- Modal.vue
+  ```vue
+  <script setup>
+  </script>
+  <template>
+    <div class="modal">
+      <h2>Modal</h2>
+      <p>모달입니다.</p>
+    </div>
+  </template>
+  ```
+
+다음으로 부모 컴포넌트에 Modal 컴포넌트를 적용하고, 토글 버튼 태그에 조건부 렌더링을 적용할 상태 변수값을 click이벤트로 반전 초기화 되도록 적용한 뒤 Modal 컴포넌트를 해당 값을 통해 조건부 렌더링 되도록 v-if 디렉티브를 적용하여 컴포넌트를 구현한다.
+- Chapter07.vue
+  ```vue
+  <script setup>
+  import Modal from './Modal.vue';
+  import { ref } from 'vue';
+
+  const isModal = ref(true)
+  </script>
+  <template>
+    <div>
+      <Modal v-if="isModal"/>
+      <button @click="isModal=!isModal">toggle</button>
+    </div>
+  </template>
+  <style scoped>
+    .modal {
+      background: #ccc;
+      padding: 1rem;
+    }
+  </style>
+  ```
+
+Modal이 출력되는것은 Modal 컴포넌트가 Mount된것이다.
+그리고 토글버튼을 클릭하여 Modal이 사라지는것은 UnMount된것이다.
+
+이는 라이프사이클 훅으로 확인이 가능하다.
+훅이 걸리면 우리가 원하는 추가할수 있게 된다.
+
+## Modal 컴포넌트 훅 적용
+
+- Modal.vue
+  ```vue
+  <script setup>
+  import { onMounted, onUnmounted } from 'vue';
+  onMounted(() => {
+    console.log("Mounted")
+  })
+  onUnmounted(() => {
+    console.log("Unmounted")
+  })
+
+  console.log("setup")
+  </script>
+  <template>
+    <div class="modal">
+      <h2>Modal</h2>
+      <p>모달입니다.</p>
+    </div>
+  </template>
+  ```
+
+위와같이 onMounted, onUnmounted 훅을 적용하고 콜백 함수에 해당 라이프사이클인 경우 로직일 실행할 수 있도록 출력 로그를 작성해본다.
+
+***참고로 vue2의 created훅은 vue3에서 setup함수로 대체된다.***
+</details>
+<br>
+
+
+
 # 템플릿
 <details>
 <summary>펼치기/접기</summary>
