@@ -1,10 +1,13 @@
 <script setup>
 import Modal from './Modal.vue';
+import { ref } from 'vue';
+
+const isModal = ref(true)
 </script>
 <template>
   <div>
-    <Modal/>
-    <button>toggle</button>
+    <Modal v-if="isModal"/>
+    <button @click="isModal=!isModal">toggle</button>
   </div>
 </template>
 <style scoped>
@@ -13,4 +16,3 @@ import Modal from './Modal.vue';
     padding: 1rem;
   }
 </style>
-
