@@ -744,7 +744,11 @@ Modal이 출력되는것은 Modal 컴포넌트가 Mount된것이다.
 <summary>펼치기/접기</summary>
 <br>
 
-## 방법 01 - Emit
+## 방법 01 - Emit(defineEmit)
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
 사용법은 vue2와 동일하다.  
 다만 컴포지션 API 방식을 사용할때 자식컴포넌트에서 문법이 조금 수정되었다.  
 기존 this.$emit()으로 어디서나 접근이 가능하던 문법은 사용이 불가능하며, defineProps라는 내장 함수로 제공한다.  
@@ -790,6 +794,74 @@ Modal이 출력되는것은 Modal 컴포넌트가 Mount된것이다.
     >
   </template>
   ```
+</details>
+<br>
+
+## 방법 02 - v-model(defineModel)
+<details>
+<summary>펼치기/접기</summary>
+<br>
+
+vue3에 새로운 방법이 추가되었다.  
+부모 컴포넌트에서 v-model로 ref를 바인딩한다.  
+자식 컴포넌트에서는 defineModel이라는 내장함수를 통해   
+
+### 부모컴포넌트
+- appendix/Parent01
+  ```vue
+  <script setup>
+  import { ref } from 'vue';
+  import Child02 from './Child02.vue';
+
+  let title = ref('title')
+  </script>
+  <template>
+    <h1>Parent02</h1>
+    <p>ref: {{ title }}</p>
+    <Child02 v-model="title" />
+  </template>
+  ```
+### 자식컴포넌트
+- appendix/Child01
+  ```vue
+  <script setup>
+  import { defineModel } from 'vue';
+    const model = defineModel();
+  </script>
+  <template>
+    <h2>Child02</h2>
+    <p>props: {{ model }}</p>
+    <input 
+      type="text" 
+      v-model="model"
+    >
+  </template>
+  ```
+
+defineModel에 의해 반환되는 값은 ref이다.  
+다른 ref처럼 value 속성을 통해 접근하여 값을 변경할 수 있고, 부모 값과 로컬 값 사이의 양방향 바인딩으로 작동하게 된다.  
+vue2에서 props는 primitive한 값에 대해서는 직접 수정이 되지 않았으나, Object 타입의 props를 전달받아 해당 객체의 프로퍼티를 수정하는것은 부모에도 반영이 되었었다.  
+vue3에서는 해당 기능으로 primitive한 값 조차도 수정할 수 있게 제공해준다.  
+물론 공식 문서에서 이를 직접 설명해준다. 지양하라는 경고조차 없다!  
+### 자식컴포넌트
+- appendix/Child01
+  ```vue
+  <script setup>
+  import { defineModel } from 'vue';
+    const model = defineModel();
+    model.value="메롱" // 부모 컴포넌트의 v-model로 바인딩 된 ref에 반영이 된다.
+  </script>
+  <template>
+    <h2>Child02</h2>
+    <p>props: {{ model }}</p>
+    <input 
+      type="text" 
+      v-model="model"
+    >
+  </template>
+  ```
+</details>
+<br>
 
 </details>
 <br>
