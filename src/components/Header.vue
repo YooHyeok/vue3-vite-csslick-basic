@@ -6,6 +6,6 @@
 </script>
 <template>
   <header>
-    <h1>Header</h1>
+    <h1>{{ props.title }}</h1>
   </header>
 </template>
