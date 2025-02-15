@@ -8,6 +8,7 @@ import Chapter05 from './components/Chapter05.vue'
 import Chapter06 from './components/Chapter06.vue'
 import Chapter07 from './components/Chapter07.vue'
 import Parent01 from './appendix/Parent01.vue'
+import Parent03 from './appendix/Parent03.vue'
 </script>
 
 <template>
@@ -20,6 +21,7 @@ import Parent01 from './appendix/Parent01.vue'
   <Chapter06/>
   <Chapter07/>
   <Parent01/>
+  <Parent03/>
 </template>
 
 <style scoped>
