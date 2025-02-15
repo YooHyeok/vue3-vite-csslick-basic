@@ -739,7 +739,60 @@ Modal이 출력되는것은 Modal 컴포넌트가 Mount된것이다.
 </details>
 <br>
 
+# 컴포넌트간 양방향 데이터 전달
+<details>
+<summary>펼치기/접기</summary>
+<br>
 
+## 방법 01 - Emit
+사용법은 vue2와 동일하다.  
+다만 컴포지션 API 방식을 사용할때 자식컴포넌트에서 문법이 조금 수정되었다.  
+기존 this.$emit()으로 어디서나 접근이 가능하던 문법은 사용이 불가능하며, defineProps라는 내장 함수로 제공한다.  
+부모 컴포넌트에서 `@emit이름=함수` 로 정의하였다면  
+자식 컴포넌트에서는 `const emits = defineEmits(['emit이름'])` 과 같이 사용한다.  
+
+### 부모컴포넌트
+- appendix/Parent01
+  ```vue
+  <script setup>
+  import { ref } from 'vue';
+  import Child01 from './Child01.vue';
+
+  let title = ref('title')
+  </script>
+  <template>
+    <h1>Parent</h1>
+    <p>ref: {{ title }}</p>
+    <Child01 
+      :title="title"
+      @onInput="(value) => { title = value } /* emit 이름: onInput */" 
+    />
+  </template>
+  ```
+### 자식컴포넌트
+- appendix/Child01
+  ```vue
+  <script setup>
+  import { ref, defineProps, defineEmits } from 'vue';
+    const props = defineProps( {title: String} );
+    const emits = defineEmits( ['onInput'] ); /* emit 이름: onInput */
+  </script>
+  <template>
+    <h2>Child</h2>
+    <p>props: {{ props.title }}</p>
+    <input 
+      type="text" 
+      :value="props.title" 
+      @input=" 
+        inputText = $event.target.value;
+        emits('onInput', inputText)
+      "
+    >
+  </template>
+  ```
+
+</details>
+<br>
 
 # 템플릿
 <details>
