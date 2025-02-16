@@ -794,6 +794,41 @@ Modal이 출력되는것은 Modal 컴포넌트가 Mount된것이다.
     >
   </template>
   ```
+
+## Object 타입 props 프로퍼티 직접 수정  
+vue2와 동일하게 Object 타입의 props의 프로퍼티에 직접 접근하여 수정이 가능하다.  
+하지만 template영역에서 v-model로만 수정이 가능하며, script영역에서는 value로 접근하더라도 부모영역에 갱신되지 않는다.
+### 부모컴포넌트
+- appendix/Parent02
+  ```vue
+  <script setup>
+  import { ref } from 'vue';
+  import Child from './Child02.vue';
+
+  let title = ref({title: 'title'})
+  </script>
+  <template>
+    <h1>Parent ref: {{ title.title }}</h1>
+    <Child :title="title"/>
+  </template>
+  ```
+### 자식컴포넌트
+- appendix/Child02
+  ```vue
+  <script setup>
+  import { defineProps } from 'vue';
+    const props = defineProps({
+      title: Object
+    });
+    console.log(props.title.title)
+    props.title.title="멍충아" /* 부모 ref 갱신 불가 */
+    props.title.title.value="멍충아" /* 부모 ref 갱신 불가(오류발생) */
+  </script>
+  <template>
+    <h2>Child02</h2>
+    <input type="text" v-model="props.title.title"> <!-- 부모 ref 갱신 가능 -->
+  </template>
+  ```
 </details>
 <br>
 
@@ -807,7 +842,7 @@ vue3에 새로운 방법이 추가되었다.
 자식 컴포넌트에서는 defineModel이라는 내장함수를 통해   
 
 ### 부모컴포넌트
-- appendix/Parent01
+- appendix/Parent03
   ```vue
   <script setup>
   import { ref } from 'vue';
@@ -822,7 +857,7 @@ vue3에 새로운 방법이 추가되었다.
   </template>
   ```
 ### 자식컴포넌트
-- appendix/Child01
+- appendix/Child03
   ```vue
   <script setup>
   import { defineModel } from 'vue';
