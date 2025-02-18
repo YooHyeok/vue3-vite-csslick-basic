@@ -1,8 +1,11 @@
 <script setup>
-import { defineProps } from 'vue';
-  const props = defineProps({
-    title: Object
-  });
+  import { defineProps } from 'vue';
+    const props = defineProps({
+      title: {
+        type: Object,
+        default: () => {}
+      }
+    });
   console.log(props.title.title)
   props.title.title="멍충아" /* 부모 ref 갱신 불가 */
 </script>

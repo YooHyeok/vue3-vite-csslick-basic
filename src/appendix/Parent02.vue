@@ -1,8 +1,8 @@
 <script setup>
-import { ref } from 'vue';
-import Child02 from './Child02.vue';
+  import { ref } from 'vue';
+  import Child02 from './Child02.vue';
 
-let title = ref({title: 'title'})
+  let title = ref({title: 'title'})
 </script>
 <template>
   <h1>Parent02</h1>

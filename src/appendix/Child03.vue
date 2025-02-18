@@ -5,7 +5,7 @@ import {  defineModel } from 'vue';
   model.value="메롱"
 </script>
 <template>
-  <h2>Child02</h2>
+  <h2>Child03</h2>
   <p>model: {{ model }}</p>
   <input 
     type="text" 

@@ -5,7 +5,7 @@ import Child01 from './Child01.vue';
 let title = ref('title')
 </script>
 <template>
-  <h1>Parent</h1>
+  <h1>Parent01</h1>
   <p>ref: {{ title }}</p>
   <Child01 
     :title="title"
